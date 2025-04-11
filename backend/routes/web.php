@@ -17,4 +17,23 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// Admin route
+Route::middleware(['auth', 'role:admin'])->get('/admin', function () {
+    return view('admin.dashboard');
+});
+
+// Seller route
+Route::middleware(['auth', 'role:seller'])->group(function () {
+    Route::get('/seller', function () {
+        return view('seller.dashboard');
+    });
+});
+
+// User route (mặc định Breeze đã có)
+Route::middleware(['auth', 'role:user'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    });
+});
+
 require __DIR__.'/auth.php';
