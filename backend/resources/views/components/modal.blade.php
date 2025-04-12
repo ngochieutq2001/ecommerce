@@ -28,8 +28,14 @@ $maxWidth = [
         lastFocusable() { return this.focusables().slice(-1)[0] },
         nextFocusable() { return this.focusables()[this.nextFocusableIndex()] || this.firstFocusable() },
         prevFocusable() { return this.focusables()[this.prevFocusableIndex()] || this.lastFocusable() },
-        nextFocusableIndex() { return (this.focusables().indexOf(document.activeElement) + 1) % (this.focusables().length + 1) },
-        prevFocusableIndex() { return Math.max(0, this.focusables().indexOf(document.activeElement)) -1 },
+        nextFocusableIndex() { 
+            const currentIndex = this.focusables().indexOf(document.activeElement);
+            return currentIndex > -1 ? (currentIndex + 1) % this.focusables().length : 0;
+        },
+        prevFocusableIndex() { 
+            const currentIndex = this.focusables().indexOf(document.activeElement);
+            return currentIndex > -1 ? (currentIndex - 1 + this.focusables().length) % this.focusables().length : this.focusables().length - 1;
+        },
     }"
     x-init="$watch('show', value => {
         if (value) {
