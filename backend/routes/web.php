@@ -2,6 +2,15 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
+use Laravel\Socialite\Facades\Socialite;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+
+use App\Http\Controllers\Auth\SocialController;
+
+Route::get('auth/google', [SocialController::class, 'redirectToGoogle'])->name('google.redirect');
+Route::get('auth/google/callback', [SocialController::class, 'handleGoogleCallback']);
 
 Route::get('/', function () {
     return view('welcome');
