@@ -8,6 +8,10 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\Auth\SocialController;
+use App\Http\Controllers\CategoryController;
+
+// Route::resource('categories', CategoryController::class);
+
 
 Route::get('auth/google', [SocialController::class, 'redirectToGoogle'])->name('google.redirect');
 Route::get('auth/google/callback', [SocialController::class, 'handleGoogleCallback']);
